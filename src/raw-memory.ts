@@ -15,6 +15,10 @@ interface RawMemory {
      */
     foreignSegment: ForeignMemorySegment;
     /**
+     * A string with a shared memory segment available on every world shard. Maximum string length is 100 KB.
+     */
+    interShardSegment: string //TODO
+    /**
      * Get a raw string representation of the Memory object.
      */
     get(): string;

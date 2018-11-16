@@ -1,5 +1,7 @@
 declare class RoomVisual {
-    /** The name of the room. */
+    /** 
+     * The name of the room.
+     */
     roomName: string;
 
     /**

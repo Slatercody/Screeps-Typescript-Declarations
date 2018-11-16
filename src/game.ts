@@ -3,6 +3,10 @@
  */
 interface Game {
     /**
+     * A hash containing all your construction sites with their id as hash keys.
+     */
+    constructionSites: {[constructionSiteId: string]: ConstructionSite};
+    /**
      * An object containing information about your CPU usage with the following properties:
      */
     cpu: CPU;
@@ -27,9 +31,17 @@ interface Game {
      */
     market: Market;
     /**
-     * A hash containing all the rooms available to you with room names as hash keys.
+     * A global object representing the in-game market. See the documentation below.
+     */
+    resources: Object;//TODO
+    /**
+     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
      */
     rooms: {[roomName: string]: Room};
+    /**
+     * An object describing the world shard where your script is currently being executed in.
+     */
+    shard: Object;//TODO
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
@@ -38,16 +50,10 @@ interface Game {
      * A hash containing all your structures with structure id as hash keys.
      */
     structures: {[structureId: string]: Structure};
-
-    /**
-     * A hash containing all your construction sites with their id as hash keys.
-     */
-    constructionSites: {[constructionSiteId: string]: ConstructionSite};
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */
     time: number;
-
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
      * @param id The unique identifier.

@@ -1,5 +1,5 @@
 /**
- * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
+ * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure..
  */
 interface Mineral extends RoomObject {
     /**

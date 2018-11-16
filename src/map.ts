@@ -49,18 +49,29 @@ interface GameMap {
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
+     * 
+     * @param roomName 
+     * Get a Room.Terrain object which provides fast access to static terrain data. 
+     * This method works for any room in the world even if you have no access to it.
+     */
+    getRoomTerrain(roomName: string): Object;//TODO
+    /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    getTerrainAt(x: number, y: number, roomName: string): string;
+    //getTerrainAt(x: number, y: number, roomName: string): string; DEPRECATED
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
      */
-    getTerrainAt(pos: RoomPosition): string;
-    
+    //getTerrainAt(pos: RoomPosition): string; DEPRECATED
+    /**
+     * Returns the world size as a number of rooms between world corners.
+     * For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     */
+    getWorldSize(): Number
     /**
      * Check if the room is available to move into.
      * @param roomName The room name.
@@ -68,5 +79,3 @@ interface GameMap {
      */
     isRoomAvailable(roomName: string): boolean;
 }
-
-//No static is available

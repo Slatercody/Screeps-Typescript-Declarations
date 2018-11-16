@@ -1,6 +1,7 @@
 // Updated 2016-02-05
 /**
- * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
+ * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. 
+ * Each creep consists of up to 50 body parts with the following possible types: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, CLAIM, TOUGH
  */
 interface Creep extends RoomObject {
     readonly prototype: Creep;
@@ -56,17 +57,13 @@ interface Creep extends RoomObject {
      */
     owner: Owner;
     /**
-     * The link to the Room object. Always defined because creeps give visibility into the room they're in.
-     */
-    room: Room;
+     * The text message that the creep was saying at the last tick.
+     */ 
+    saying: string;
     /**
      * Whether this creep is still being spawned.
      */
     spawning: boolean;
-    /**
-     * The text message that the creep was saying at the last tick.
-     */ 
-    saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
      */

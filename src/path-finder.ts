@@ -31,7 +31,7 @@ interface PathFinder {
      *
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
-    use(isEnabled: boolean): void;
+    //use(isEnabled: boolean): void; DEPRECATED
 }
 
 /**

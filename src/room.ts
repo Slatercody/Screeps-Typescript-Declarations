@@ -1,3 +1,4 @@
+//This Class could probably use extensions, too drunk right now. Look up getEventLog in screeps docs.
 /**
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
  */
@@ -20,11 +21,6 @@ interface Room {
      * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
      */
     memory: any;
-    /**
-     * One of the following constants:
-     * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
-     */
-    mode: string;
     /**
      * The name of the room.
      */

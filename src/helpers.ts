@@ -5,16 +5,16 @@ interface GlobalControlLevel {
 }
 
 interface HeapStatistics {
-    total_heap_size: number,
-    total_heap_size_executable: number,
-    total_physical_size: number,
-    total_available_size: number,
-    used_heap_size: number,
-    heap_size_limit: number,
-    malloced_memory: number,
-    peak_malloced_memory: number,
-    does_zap_garbage: 0 | 1,
-    externally_allocated_size: number
+    total_heap_size: 29085696,
+    total_heap_size_executable: 3670016,
+    total_physical_size: 26447928,
+    total_available_size: 319649520,
+    used_heap_size: 17493824,
+    heap_size_limit: 343932928,
+    malloced_memory: 8192,
+    peak_malloced_memory: 1060096,
+    does_zap_garbage: 0,
+    externally_allocated_size: 38430000
 } 
 
 interface CPU {
@@ -23,12 +23,25 @@ interface CPU {
     bucket: number;
 
     /**
+     * Use this method to get heap statistics for your virtual machine. 
+     * The return value is almost identical to the Node.js function v8.getHeapStatistics(). 
+     * This function returns one additional property: externally_allocated_size which is the total amount 
+     * of currently allocated memory which is not included in the v8 heap but counts against this isolate's memory limit. 
+     * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
+     */
+    getHeapStatistics() : HeapStatistics;
+    /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
      */
     getUsed(): number;
-    getHeapStatistics() : HeapStatistics;
+    /**
+     * 
+     * Allocate CPU limits to different shards. 
+     * Total amount of CPU should remain equal to Game.cpu.shardLimits. 
+     * This method can be used only once per 12 hours.
+     */
+    setShardLimits(setShardLimits: {shard: string, cpu: number}): number
 }
-
 /**
  * An array describing the creep’s body. Each element contains the following properties:
  */

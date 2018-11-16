@@ -18,11 +18,6 @@ interface Structure extends RoomObject {
      */
     id: string;
     /**
-     * If you can get an instance of a Structure, you can see it.
-     * If you can see the Structure, you can see the room it's in.
-     */
-    room: Room;
-    /**
      * One of the STRUCTURE_* constants.
      */
     structureType: string;
@@ -159,7 +154,7 @@ interface StructureExtension extends OwnedStructure {
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    //transferEnergy(target: Creep, amount?: number): number; DEPRECATED
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {
@@ -293,7 +288,7 @@ interface StructurePowerSpawn extends OwnedStructure {
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    //transferEnergy(target: Creep, amount?: number): number;
 
 }
 
@@ -308,17 +303,14 @@ declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
  */
 interface StructureRampart extends OwnedStructure {
     readonly prototype: StructureRampart;
-
-    /**
-     * The amount of game ticks when this rampart will lose some hit points.
-     */
-    ticksToDecay: number;
-
     /**
      * If false (default), only your creeps can step on the same square. If true, any hostile creeps can pass through.
      */
     isPublic: boolean;
-
+    /**
+     * The amount of game ticks when this rampart will lose some hit points.
+     */
+    ticksToDecay: number;
     /**
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
@@ -371,7 +363,7 @@ interface StructureStorage extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    //transfer(target: Creep, resourceType: string, amount?: number): number; DEPRECATED
     /**
      * @deprecated
      * An alias for storage.transfer(target, RESOURCE_ENERGY, amount).
@@ -408,7 +400,7 @@ interface StructureTower extends OwnedStructure {
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: Creep): number;
+    attack(target: Creep | Structure): number;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
@@ -424,7 +416,7 @@ interface StructureTower extends OwnedStructure {
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    //transferEnergy(target: Creep, amount?: number): number; DEPRECATED
 }
 
 interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {
@@ -437,10 +429,6 @@ declare const StructureTower: StructureTowerConstructor;
  */
 interface StructureWall extends Structure {
     readonly prototype: StructureWall;
-    /**
-     * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
-     */
-    ticksToLive: number;
 }
 
 interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> {
@@ -511,7 +499,15 @@ interface StructureLab extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    //transfer(target: Creep, resourceType: string, amount?: number): number; DEPRECATED
+    /**
+     * 
+     * @param creep 
+     * Immediately remove boosts from the creep and drop 50% of the mineral compounds used to boost it onto the ground 
+     * regardless of the creep's remaining time to live. The creep has to be at adjacent square to the lab. 
+     * Unboosting requires cooldown time equal to the total sum of the reactions needed to produce all the compounds applied to the creep.
+     */
+    unboostCreep(creep: Creep): number
 }
 
 interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {
@@ -652,3 +648,28 @@ interface StructurePortalConstructor extends _Constructor<StructurePortal>, _Con
 }
 
 declare const StructurePortal: StructurePortalConstructor;
+
+interface Tombstone extends RoomPosition {
+    /**
+     * An object containing the deceased creep.
+     */
+    creep: Creep;
+    /**
+     * Time of death.
+     */
+    deathTime: number;
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * An object with the tombstone contents. Each object key is one of the RESOURCE_* constants, values are resources amounts. 
+     * RESOURCE_ENERGY is always defined and equals to 0 when empty, other resources are undefined when empty. 
+     * You can use lodash.sum to get the total amount of contents.
+     */
+    store: any;
+    /**
+     * The amount of game ticks before this tombstone decays.
+     */
+    ticksToDecay: number;
+}

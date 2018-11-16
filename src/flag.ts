@@ -1,5 +1,5 @@
 /**
- * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
+ * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only..
  */
 interface Flag extends RoomObject {
     readonly prototype: Flag;

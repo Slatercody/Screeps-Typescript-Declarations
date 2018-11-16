@@ -12,13 +12,13 @@ interface Market {
      */
     incomingTransactions: Transaction[];
     /**
-     * An object with your active and inactive buy/sell orders on the market.
-     */
-    orders: { [key: string]: Order };
-    /**
      * An array of the last 100 outgoing transactions from your terminals
      */
     outgoingTransactions: Transaction[];
+    /**
+     * An object with your active and inactive buy/sell orders on the market.
+     */
+    orders: { [key: string]: Order };
     /**
      * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula: Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
      * @param amount Amount of resources to be sent.

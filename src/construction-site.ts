@@ -1,5 +1,5 @@
 /**
- * A site of a structure which is currently under construction.
+ * A site of a structure which is currently under construction..
  */
 interface ConstructionSite extends RoomObject {
     readonly prototype: ConstructionSite;
