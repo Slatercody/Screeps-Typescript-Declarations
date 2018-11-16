@@ -1116,7 +1116,9 @@ interface Game {
     /**
      * A global object representing the in-game market. See the documentation below.
      */
-    resources: Object;
+    resources: {
+        [key: string]: any;
+    };
     /**
      * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
      */
@@ -1126,7 +1128,7 @@ interface Game {
     /**
      * An object describing the world shard where your script is currently being executed in.
      */
-    shard: Object;
+    shard: Shard;
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
@@ -1380,6 +1382,20 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
+interface Shard {
+    /**
+     * The name of the shard.
+     */
+    name: string;
+    /**
+     * Currently always equals to normal.
+     */
+    type: "normal";
+    /**
+     * Whether this shard belongs to the PTR.
+     */
+    ptr: boolean;
+}
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -1440,7 +1456,7 @@ interface GameMap {
      * Get a Room.Terrain object which provides fast access to static terrain data.
      * This method works for any room in the world even if you have no access to it.
      */
-    getRoomTerrain(roomName: string): Object;
+    getRoomTerrain(roomName: string): RoomTerrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
@@ -1791,6 +1807,11 @@ interface RawMemory {
     foreignSegment: ForeignMemorySegment;
     /**
      * A string with a shared memory segment available on every world shard. Maximum string length is 100 KB.
+     *
+     * **Warning:** this segment is not safe for concurrent usage! All shards have shared access to the same instance of
+     * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
+     * string value is written all at once atomically. You must implement your own system to determine when each shard is
+     * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
      */
     interShardSegment: string;
     /**
@@ -2055,6 +2076,25 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
     (x: number, y: number, roomName: string): RoomPosition;
 }
 declare const RoomPosition: RoomPositionConstructor;
+/**
+ * Result of Object that contains all terrain for a room
+ */
+interface RoomTerrain {
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
+     */
+    get(x: number, y: number): number;
+}
+interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
+    /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    new (roomName: string): RoomTerrain;
+}
 declare class RoomVisual {
     /**
      * The name of the room.

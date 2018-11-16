@@ -33,7 +33,7 @@ interface Game {
     /**
      * A global object representing the in-game market. See the documentation below.
      */
-    resources: Object;//TODO
+    resources: { [key: string]: any };
     /**
      * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
      */
@@ -41,7 +41,7 @@ interface Game {
     /**
      * An object describing the world shard where your script is currently being executed in.
      */
-    shard: Object;//TODO
+    shard: Shard;
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */

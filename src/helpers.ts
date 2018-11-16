@@ -244,3 +244,17 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
+interface Shard {
+    /**
+     * The name of the shard.
+     */
+    name: string;
+    /**
+     * Currently always equals to normal.
+     */
+    type: "normal";
+    /**
+     * Whether this shard belongs to the PTR.
+     */
+    ptr: boolean;
+}

@@ -54,7 +54,7 @@ interface GameMap {
      * Get a Room.Terrain object which provides fast access to static terrain data. 
      * This method works for any room in the world even if you have no access to it.
      */
-    getRoomTerrain(roomName: string): Object;//TODO
+    getRoomTerrain(roomName: string): RoomTerrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
