@@ -90,9 +90,6 @@ interface StructureSpawn extends OwnedStructure {
    */
   spawnCreep(body: string[], name: string, opts?: SpawnOpts): number;
   /**
-   * Destroy this spawn immediately.
-   */
-  /**
    * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time. The target should be at adjacent square.
    * @param target The target creep object.
    */
